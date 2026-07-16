@@ -208,7 +208,7 @@ export default function HowItWorks() {
         <h2 className="mx-auto mt-4 max-w-4xl text-center font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
           One gateway.
           <br />
-          Individual access for every <span className="text-vermilion">teammate.</span>
+          Access for every <span className="text-vermilion">teammate.</span>
         </h2>
         {/* Steps (desktop row) */}
         <div className="mt-16 hidden gap-10 md:grid md:grid-cols-3">
