@@ -39,6 +39,7 @@ type ModelDef = {
   icon: (c?: string) => React.ReactElement;
   name: string;
   tag: string;
+  prompt: string;
   summary: string;
   primary: string;
   fallback: string;
@@ -46,9 +47,9 @@ type ModelDef = {
 };
 
 const customModels: ModelDef[] = [
-  { icon: I.bolt, name: "company-fast", tag: "Everyday tasks", summary: "Cheapest capable model. Avoids premium.", primary: "GLM", fallback: "Kimi", reason: "GLM is cheapest with 87% of its limit left — ideal for routine work." },
-  { icon: I.star, name: "company-best", tag: "Complex work", summary: "Highest quality, cost is secondary.", primary: "Anthropic", fallback: "OpenAI", reason: "Claude scores highest for complex reasoning and still has budget." },
-  { icon: I.auto, name: "company-auto", tag: "Auto optimize", summary: "Balances quality, cost and remaining limits.", primary: "OpenAI", fallback: "GLM", reason: "GPT balances quality and cost best right now — Kimi is low (22%), so it's skipped." },
+  { icon: I.bolt, name: "company-fast", tag: "Everyday tasks", prompt: "Summarize today's support tickets.", summary: "Cheapest capable model. Avoids premium.", primary: "GLM", fallback: "Kimi", reason: "GLM is cheapest with 87% of its limit left — ideal for routine work." },
+  { icon: I.star, name: "company-best", tag: "Complex work", prompt: "Plan our Q3 product strategy.", summary: "Highest quality, cost is secondary.", primary: "Anthropic", fallback: "OpenAI", reason: "Claude scores highest for complex reasoning and still has budget." },
+  { icon: I.auto, name: "company-auto", tag: "Auto optimize", prompt: "Draft a customer launch email.", summary: "Balances quality, cost and remaining limits.", primary: "OpenAI", fallback: "GLM", reason: "GPT balances quality and cost best right now — Kimi is low (22%), so it's skipped." },
 ];
 
 const routing = [
@@ -67,7 +68,7 @@ export default function CustomModels() {
         {/* Header — centered */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#2e6b57]">Custom models &amp; intelligent routing</p>
-          <h2 className="mt-5 font-serif text-5xl leading-[1.02] tracking-tight text-forest sm:text-6xl">
+          <h2 className="mt-5 font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
             Build the models your team <span className="text-vermilion">actually needs.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-[#3d4a44]">
@@ -109,7 +110,8 @@ export default function CustomModels() {
 <code>{`POST `}<span className="text-[#7ee787]">/v1/chat/completions</span>{`
 
 {
-  model: `}<span className="text-[#a5d6ff]">{`"${model.name}"`}</span>{`
+  model: `}<span className="text-[#a5d6ff]">{`"${model.name}"`}</span>{`,
+  prompt: `}<span className="text-[#ce9178]">{`"${model.prompt}"`}</span>{`
 }`}</code>
               </pre>
               <p className="mt-4 text-sm leading-6 text-[#3d4a44]">{model.summary}</p>

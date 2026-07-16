@@ -220,7 +220,7 @@ export default function OpenSourceTrust() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr] lg:items-center lg:gap-14">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2e6b57]">Open source trust</p>
-            <h2 className="mt-5 font-serif text-5xl leading-[1.02] tracking-tight text-forest sm:text-6xl">
+            <h2 className="mt-5 font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
               Your AI gateway should not be <span className="text-vermilion">a black box.</span>
             </h2>
             <p className="mt-6 text-lg leading-8 text-[#3d4a44]">
@@ -228,13 +228,13 @@ export default function OpenSourceTrust() {
               gateway in infrastructure you control.
             </p>
 
-            <form action="#" className="mt-8 flex max-w-md flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white">
-              <input type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
+            <form action="mailto:contact@ampere.sh?subject=Super%20Proxy%20waitlist" method="post" encType="text/plain" className="mt-8 flex max-w-md flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white">
+              <input name="email" type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
               <button type="submit" className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:rounded-none">
-                Get the GitHub link <ArrowRight className="h-3.5 w-3.5" />
+                Join the waitlist <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </form>
-            <p className="mt-3 text-sm text-muted">One email when the repository goes live. No newsletters.</p>
+            <p className="mt-3 text-sm text-muted">Opens a pre-filled email to request early access. No newsletters.</p>
           </div>
 
           <CodeEditor />
@@ -268,7 +268,7 @@ export default function OpenSourceTrust() {
         <div className="mt-16 grid gap-10 rounded-3xl border border-border bg-surface/50 p-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:p-12">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2e6b57]">Security by design</p>
-            <h3 className="mt-4 font-serif text-4xl leading-tight tracking-tight text-forest">
+            <h3 className="mt-4 font-sans text-4xl font-semibold leading-tight tracking-tight text-forest">
               Built for control and <span className="text-vermilion">privacy.</span>
             </h3>
             <p className="mt-4 max-w-sm leading-7 text-[#3d4a44]">
@@ -288,7 +288,7 @@ export default function OpenSourceTrust() {
                 </li>
               ))}
             </ul>
-            <a href="#" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-forest hover:underline md:hidden">
+            <a href="#features" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-forest hover:underline md:hidden">
               See all security features <ArrowRight className="h-3.5 w-3.5" />
             </a>
           </div>

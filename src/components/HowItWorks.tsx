@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import { OpenAILogo, AnthropicLogo, GLMLogo, KimiLogo } from "@/components/ProviderLogos";
+import { OpenAILogo, AnthropicLogo, GLMLogo, KimiLogo, GeminiLogo } from "@/components/ProviderLogos";
 
 function CheckCircle({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -64,6 +64,7 @@ const providers = [
   { name: "Anthropic", Logo: AnthropicLogo },
   { name: "GLM", Logo: GLMLogo },
   { name: "Kimi", Logo: KimiLogo },
+  { name: "Gemini", Logo: GeminiLogo },
 ];
 
 const members = [
@@ -71,6 +72,7 @@ const members = [
   { name: "Maya", role: "Designer", key: "key_mya_9c1...", slug: "maya" },
   { name: "Sam", role: "Product", key: "key_sam_a3b...", slug: "sam" },
   { name: "Jordan", role: "Ops", key: "key_jrd_2d8...", slug: "jordan" },
+  { name: "Angela", role: "Marketing", key: "key_ang_5e4...", slug: "angela" },
 ];
 
 const allowed = [
@@ -203,7 +205,7 @@ export default function HowItWorks() {
         <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[#2e6b57]">
           How it works
         </p>
-        <h2 className="mx-auto mt-4 max-w-4xl text-center font-serif text-5xl leading-[1.02] tracking-tight text-forest sm:text-6xl">
+        <h2 className="mx-auto mt-4 max-w-4xl text-center font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
           One gateway.
           <br />
           Individual access for every <span className="text-vermilion">teammate.</span>

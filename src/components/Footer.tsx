@@ -14,14 +14,14 @@ export default function Footer() {
               className="h-9 w-9 rounded-lg object-contain"
             />
             <div>
-              <p className="font-serif text-xl leading-none text-forest">Super Proxy</p>
+              <p className="font-sans text-xl font-semibold leading-none text-forest">Super Proxy</p>
               <p className="mt-1.5 text-xs text-muted">AI access management for small teams.</p>
             </div>
           </div>
 
           <a
             href="#waitlist"
-            className="press inline-flex items-center justify-center rounded-xl bg-forest px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#122d26]"
+            className="press hidden items-center justify-center rounded-xl bg-forest px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:inline-flex"
           >
             Join the waitlist
           </a>

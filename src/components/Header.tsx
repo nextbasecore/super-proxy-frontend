@@ -32,7 +32,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         {/* Logo */}
-        <a href="#top" className="flex items-center gap-2.5 font-serif text-2xl leading-none text-forest">
+        <a href="#top" className="flex items-center gap-2.5 font-sans text-2xl font-semibold leading-none text-forest">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="Super Proxy" width={32} height={32} className="h-8 w-8 rounded-lg object-contain" />
           Super Proxy

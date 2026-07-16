@@ -35,6 +35,13 @@ export function KimiLogo({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
+export function GeminiLogo({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/gemini-color.svg" alt="" aria-hidden className={className} />
+  );
+}
+
 export const PROVIDER_LOGOS = {
   openai: OpenAILogo,
   anthropic: AnthropicLogo,

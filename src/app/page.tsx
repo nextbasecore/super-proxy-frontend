@@ -200,7 +200,7 @@ export default function Home() {
               AI access management for small teams
             </p>
 
-            <h1 className="mt-4 font-serif text-5xl leading-[1.08] tracking-tight text-forest sm:text-6xl">
+            <h1 className="mt-4 font-sans text-5xl font-semibold leading-[1.08] tracking-tight text-forest sm:text-6xl">
               AI subscriptions are cheap.{" "}
               <span className="text-vermilion">Managing them is chaos.</span>
             </h1>
@@ -210,17 +210,17 @@ export default function Home() {
               approve, with usage limits and full visibility.
             </p>
 
-            <form id="waitlist" action="#" className="mt-8 flex max-w-md scroll-mt-24 flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white">
-              <input type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
+            <form id="waitlist" action="mailto:contact@ampere.sh?subject=Super%20Proxy%20waitlist" method="post" encType="text/plain" className="mt-8 flex max-w-md scroll-mt-24 flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white">
+              <input name="email" type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
               <button type="submit" className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:rounded-none">
-                Get the GitHub link <ArrowIcon className="h-3.5 w-3.5" />
+                Join the waitlist <ArrowIcon className="h-3.5 w-3.5" />
               </button>
             </form>
             <p className="mt-3 max-w-md text-sm leading-6 text-muted">
-              No newsletters or marketing emails. One message when the repository goes live.
+              Opens a pre-filled email to request early access. No newsletters.
             </p>
 
-            <a href="#" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-forest underline-offset-4 hover:underline">
+            <a href="#how-it-works" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-forest underline-offset-4 hover:underline">
               See how it works <ArrowIcon className="h-3.5 w-3.5" />
             </a>
           </div>

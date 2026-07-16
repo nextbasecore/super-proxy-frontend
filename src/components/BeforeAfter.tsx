@@ -112,7 +112,7 @@ export default function BeforeAfter() {
         <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[#2e6b57]">
           Before vs after
         </p>
-        <h2 className="mx-auto mt-4 max-w-4xl text-center font-serif text-5xl leading-[1.02] tracking-tight text-forest sm:text-6xl">
+        <h2 className="mx-auto mt-4 max-w-4xl text-center font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
           From shared credentials to{" "}
           <span className="text-vermilion">controlled AI access.</span>
         </h2>

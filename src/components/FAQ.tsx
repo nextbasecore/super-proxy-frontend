@@ -195,7 +195,7 @@ export default function FAQ() {
         <div className="grid items-end gap-8 lg:grid-cols-[1fr_390px]">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#2e6b57]">FAQ</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-5xl leading-[1.02] tracking-tight text-forest sm:text-6xl">
+            <h2 className="mt-4 max-w-3xl font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
               Frequently asked <span className="text-vermilion">questions.</span>
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-[#3d4a44]">
