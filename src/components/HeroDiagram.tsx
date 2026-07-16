@@ -38,7 +38,17 @@ function Avatar({ slug, name, size = 28 }: { slug: string; name: string; size?: 
   return <img src={`/avatars/${slug}.png`} alt={name} width={size} height={size} className="shrink-0 rounded-full object-cover" style={{ width: size, height: size }} />;
 }
 
-export default function HeroDiagram({ providers, members }: { providers: Provider[]; members: Member[] }) {
+export default function HeroDiagram({
+  providers,
+  members,
+  gatewayTitle = "Super Proxy Gateway",
+  gatewaySubtitle = "OpenAI-compatible",
+}: {
+  providers: Provider[];
+  members: Member[];
+  gatewayTitle?: string;
+  gatewaySubtitle?: string;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const gatewayRef = useRef<HTMLDivElement>(null);
   const providerRefs = useRef(providers.map(() => ({ current: null as HTMLDivElement | null })));
@@ -70,10 +80,10 @@ export default function HeroDiagram({ providers, members }: { providers: Provide
       {/* down connector + gateway */}
       <div className="flex flex-col items-center">
         <span className="h-5 w-px bg-border" />
-        <div className="flex w-full items-center justify-center gap-3 rounded-2xl bg-forest px-5 py-4 text-white shadow-lg">
+        <div className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl bg-forest px-5 py-4 text-center text-white shadow-lg">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10"><ShieldIcon className="h-5 w-5" /></span>
-          <span className="text-sm font-semibold">Super Proxy Gateway</span>
-          <span className="flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-emerald-200"><CheckIcon className="h-2.5 w-2.5" /> OpenAI-compatible</span>
+          <span className="text-sm font-semibold">{gatewayTitle}</span>
+          <span className="flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-emerald-200"><CheckIcon className="h-2.5 w-2.5 shrink-0" /> {gatewaySubtitle}</span>
         </div>
         <span className="h-5 w-px bg-border" />
       </div>
@@ -149,12 +159,12 @@ export default function HeroDiagram({ providers, members }: { providers: Provide
       {/* gateway */}
       <div
         ref={gatewayRef}
-        className="absolute left-1/2 z-10 flex h-[150px] w-[164px] -translate-x-1/2 flex-col items-center justify-center gap-3 rounded-2xl bg-forest text-white shadow-lg"
+        className="absolute left-1/2 z-10 flex h-[150px] w-[190px] -translate-x-1/2 flex-col items-center justify-center gap-3 rounded-2xl bg-forest text-center text-white shadow-lg"
         style={{ top: 173 }}
       >
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10"><ShieldIcon className="h-5 w-5" /></span>
-        <span className="text-sm font-semibold">Super Proxy Gateway</span>
-        <span className="flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-emerald-200"><CheckIcon className="h-2.5 w-2.5" /> OpenAI-compatible</span>
+        <span className="text-sm font-semibold">{gatewayTitle}</span>
+        <span className="flex max-w-[168px] items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium leading-tight text-emerald-200"><CheckIcon className="h-2.5 w-2.5 shrink-0" /> {gatewaySubtitle}</span>
       </div>
 
       {/* member cards */}

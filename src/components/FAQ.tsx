@@ -24,9 +24,9 @@ const faqs = [
   },
   {
     icon: "link",
-    question: "Can we connect both subscriptions and regular API accounts?",
+    question: "Can we connect approved providers and API accounts?",
     answer:
-      "Yes. Super Proxy is designed to route across eligible subscriptions and standard provider API accounts from one managed gateway.",
+      "Super Proxy connects the AI providers and API accounts your company is authorized to use, then manages team access through individual keys.",
   },
   {
     icon: "server",

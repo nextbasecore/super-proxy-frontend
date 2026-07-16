@@ -8,6 +8,9 @@ import Reveal from "@/components/Reveal";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import HeroExperimentActions from "@/components/HeroExperimentActions";
+import { cookies } from "next/headers";
+import { HERO_SOURCE_COOKIE, HERO_VARIANTS, HERO_VARIANT_COOKIE, parseHeroVariant } from "@/lib/hero-experiment";
 
 /* ------------------------------------------------------------------ */
 /* Icons                                                               */
@@ -42,13 +45,6 @@ function GitHubIcon({ className = "h-4 w-4" }: { className?: string }) {
     </svg>
   );
 }
-function ArrowIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
 function CheckIcon({ className = "h-3 w-3" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -68,17 +64,17 @@ const providers = [
 ];
 
 const members = [
-  { name: "Alex", role: "Developer", key: "key_alx_7f2...", allowed: "GPT-5.6 Sol, Claude Fable 5", slug: "alex", top: 0 },
-  { name: "Sam", role: "Product", key: "key_sam_3c8...", allowed: "GLM-5.2", slug: "sam", top: 128 },
-  { name: "Maya", role: "Design", key: "key_mya_1k4...", allowed: "Kimi K2.7", slug: "maya", top: 256 },
-  { name: "Jordan", role: "Ops", key: "key_jrd_9p1...", allowed: "GPT-5.6 Sol", slug: "jordan", top: 384 },
+  { name: "Alex", role: "Developer", key: "key_alx_7f2...", allowed: "GPT-4o, Claude 3.5 Sonnet", slug: "alex", top: 0 },
+  { name: "Sam", role: "Product", key: "key_sam_3c8...", allowed: "GLM-4-Plus", slug: "sam", top: 128 },
+  { name: "Maya", role: "Design", key: "key_mya_1k4...", allowed: "Kimi K2", slug: "maya", top: 256 },
+  { name: "Jordan", role: "Ops", key: "key_jrd_9p1...", allowed: "GPT-4o", slug: "jordan", top: 384 },
 ];
 
 const topModels = [
-  { name: "GPT-5.6 Sol", count: "1.23M", pct: 51 },
-  { name: "Claude Fable 5", count: "742K", pct: 31 },
-  { name: "GLM-5.2", count: "287K", pct: 12 },
-  { name: "Kimi K2.7", count: "156K", pct: 6 },
+  { name: "GPT-4o", count: "1.23M", pct: 51 },
+  { name: "Claude 3.5 Sonnet", count: "742K", pct: 31 },
+  { name: "GLM-4-Plus", count: "287K", pct: 12 },
+  { name: "Kimi K2", count: "156K", pct: 6 },
 ];
 
 const sidebar = ["Overview", "Keys", "Models", "Usage", "Members", "Settings"];
@@ -175,7 +171,6 @@ function Dashboard() {
 
       <div className="flex items-center justify-between border-t border-border bg-[#fbfcfb] px-5 py-2.5 text-[10px] text-muted">
         <span className="flex items-center gap-1.5"><span className="text-[#2e6b57]"><CheckIcon className="h-2.5 w-2.5" /></span> All requests pass through Super Proxy Gateway</span>
-        <span className="flex items-center gap-1.5">SOC 2 in progress <span className="h-1.5 w-1.5 rounded-full bg-[#2e6b57]" /></span>
       </div>
     </div>
   );
@@ -184,7 +179,20 @@ function Dashboard() {
 /* ------------------------------------------------------------------ */
 /* Page                                                                */
 /* ------------------------------------------------------------------ */
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ variant?: string | string[]; ref?: string | string[]; __ab?: string | string[] }> }) {
+  const params = await searchParams;
+  const cookieStore = await cookies();
+  const ref = Array.isArray(params.ref) ? params.ref[0] : params.ref;
+  const previewVariant = parseHeroVariant(params.variant);
+  const campaignVariant = ref === "x" ? parseHeroVariant(params.__ab) : null;
+  const assignedVariant = parseHeroVariant(cookieStore.get(HERO_VARIANT_COOKIE)?.value);
+  const variant = previewVariant ?? campaignVariant ?? assignedVariant ?? "a";
+  const trackingEnabled = !previewVariant && (
+    (ref === "x" && campaignVariant !== null) ||
+    (assignedVariant !== null && cookieStore.get(HERO_SOURCE_COOKIE)?.value === "x_launch")
+  );
+  const hero = HERO_VARIANTS[variant];
+
   return (
     <main id="top" className="min-h-screen bg-background text-foreground">
       <Header />
@@ -197,39 +205,41 @@ export default function Home() {
             </span>
 
             <p className="mt-8 text-[13px] font-bold uppercase tracking-[0.14em] text-forest">
-              AI access management for small teams
+              {hero.category}
             </p>
 
             <h1 className="mt-4 font-sans text-5xl font-semibold leading-[1.08] tracking-tight text-forest sm:text-6xl">
-              AI subscriptions are cheap.{" "}
-              <span className="text-vermilion">Managing them is chaos.</span>
+              {hero.headline}{" "}
+              <span className="text-vermilion">{hero.headlineAccent}</span>
             </h1>
 
             <p className="mt-7 text-lg leading-8 text-[#3d4a44]">
-              Give every teammate their own API key — only the models admins
-              approve, with usage limits and full visibility.
+              {hero.description}
             </p>
 
-            <form id="waitlist" action="mailto:contact@ampere.sh?subject=Super%20Proxy%20waitlist" method="post" encType="text/plain" className="mt-8 flex max-w-md scroll-mt-24 flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white">
-              <input name="email" type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
-              <button type="submit" className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:rounded-none">
-                Join the waitlist <ArrowIcon className="h-3.5 w-3.5" />
-              </button>
-            </form>
-            <p className="mt-3 max-w-md text-sm leading-6 text-muted">
-              Opens a pre-filled email to request early access. No newsletters.
-            </p>
-
-            <a href="#how-it-works" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-forest underline-offset-4 hover:underline">
-              See how it works <ArrowIcon className="h-3.5 w-3.5" />
-            </a>
+            <HeroExperimentActions variant={variant} cta={hero.cta} microcopy={hero.microcopy} trackingEnabled={trackingEnabled} />
           </div>
 
           {/* RIGHT — diagram only */}
           <div className="flex items-center">
-            <HeroDiagram providers={providers} members={members} />
+            <HeroDiagram providers={providers} members={members} gatewayTitle={hero.gatewayTitle} gatewaySubtitle={hero.gatewaySubtitle} />
           </div>
         </div>
+
+        {hero.showBenefitStrip && (
+          <div className="mt-12 grid gap-3 border-t border-border pt-8 sm:grid-cols-3 sm:gap-6">
+            {[
+              { icon: <KeyIcon />, label: "One key per teammate" },
+              { icon: <ShieldIcon />, label: "Only approved models" },
+              { icon: <ChartIcon />, label: "See who used what" },
+            ].map((benefit) => (
+              <div key={benefit.label} className="flex items-center gap-3 rounded-xl bg-surface/60 px-4 py-3 text-sm font-semibold text-forest">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-forest shadow-sm">{benefit.icon}</span>
+                {benefit.label}
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <Reveal><HowItWorks /></Reveal>

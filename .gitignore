@@ -20,6 +20,9 @@
 # local code index
 /.codegraph/
 
+# local A/B event logs
+/data/
+
 # production
 /build
 

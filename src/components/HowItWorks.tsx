@@ -76,14 +76,14 @@ const members = [
 ];
 
 const allowed = [
-  { name: "GPT-5.6 Sol", ok: true },
-  { name: "Claude Fable 5", ok: true },
-  { name: "GLM-5.2", ok: true },
-  { name: "Kimi K2.7", ok: false },
+  { name: "GPT-4o", ok: true },
+  { name: "Claude 3.5 Sonnet", ok: true },
+  { name: "GLM-4-Plus", ok: true },
+  { name: "Kimi K2", ok: false },
 ];
 
 const steps = [
-  { n: "01", title: "Connect your providers", desc: "Admins connect the subscriptions and API accounts the company is authorized to use." },
+  { n: "01", title: "Connect your providers", desc: "Admins connect the AI providers and API accounts the company is authorized to use." },
   { n: "02", title: "Create individual API keys", desc: "Every teammate receives their own key. No provider passwords, shared accounts, or repeated logins." },
   { n: "03", title: "Approve models and limits", desc: "Admins control model access and usage limits for each employee, role, or team." },
 ];

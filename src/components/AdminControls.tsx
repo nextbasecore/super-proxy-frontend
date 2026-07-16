@@ -137,7 +137,7 @@ function CheckMark({ ok, off }: { ok?: boolean; off?: boolean }) {
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
-const modelCols = ["GPT-5.6 Sol", "Claude Fable 5", "GLM-5.2", "Kimi K2.7", "Other premium"];
+const modelCols = ["GPT-4o", "Claude 3.5 Sonnet", "GLM-4-Plus", "Kimi K2", "Other premium"];
 
 /* Provider brand marks for the mobile access chips (first 4 columns) */
 const modelMarks = [OpenAILogo, AnthropicLogo, GLMLogo, KimiLogo];
@@ -157,10 +157,10 @@ const limits = [
 ];
 
 const baseTopMembers = [
-  { name: "Alex", role: "Developer", slug: "alex", spend: "$518", model: "GPT-5.6 Sol", pct: 21 },
-  { name: "Maya", role: "Design", slug: "maya", spend: "$463", model: "Claude Fable 5", pct: 19 },
-  { name: "Sam", role: "Product", slug: "sam", spend: "$418", model: "GLM-5.2", pct: 17 },
-  { name: "Jordan", role: "Ops", slug: "jordan", spend: "$351", model: "Kimi K2.7", pct: 14 },
+  { name: "Alex", role: "Developer", slug: "alex", spend: "$518", model: "GPT-4o", pct: 21 },
+  { name: "Maya", role: "Design", slug: "maya", spend: "$463", model: "Claude 3.5 Sonnet", pct: 19 },
+  { name: "Sam", role: "Product", slug: "sam", spend: "$418", model: "GLM-4-Plus", pct: 17 },
+  { name: "Jordan", role: "Ops", slug: "jordan", spend: "$351", model: "Kimi K2", pct: 14 },
   { name: "Other members", role: "", slug: "", spend: "$661", model: "Mixed", pct: 29 },
 ];
 
@@ -277,7 +277,8 @@ function UsageOverviewCard({ range, onRangeChange }: { range: UsageRange; onRang
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-sm font-bold text-forest">Usage overview</p>
-          <p className="mt-0.5 text-xs text-muted">Spend over the last 30 days.</p>
+          <p className="mt-0.5 text-xs text-muted">Illustrative spend and trend.</p>
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-vermilion">Sample dashboard data</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="hidden items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-[#2e6b57] sm:flex"><TrendUp className="h-3 w-3" /> {usage.trend}</span>
@@ -526,6 +527,7 @@ export default function AdminControls() {
             <div>
               <p className="text-sm font-bold text-forest">Top members by usage</p>
               <p className="mt-0.5 text-xs text-muted">See who&apos;s using what and how much.</p>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-vermilion">Sample dashboard data</p>
             </div>
             <TimeRangeMenu value={usageRange} onChange={setUsageRange} />
           </div>
