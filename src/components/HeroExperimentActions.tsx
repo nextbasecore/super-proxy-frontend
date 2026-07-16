@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { HERO_EXPERIMENT_ID, type HeroVariant } from "@/lib/hero-experiment";
+import WaitlistForm from "@/components/WaitlistForm";
 
 declare global {
   interface Window {
@@ -23,14 +24,6 @@ function trackExperimentEvent(event: "exposure" | "primary_cta" | "secondary_cta
     experiment_id: HERO_EXPERIMENT_ID,
     variant,
   });
-}
-
-function ArrowIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
 }
 
 export default function HeroExperimentActions({
@@ -56,23 +49,15 @@ export default function HeroExperimentActions({
     trackExperimentEvent("exposure", variant);
   }, [trackingEnabled, variant]);
 
-  const subject = variant === "b" ? "Super Proxy GitHub link" : "Super Proxy early access";
-
   return (
     <>
-      <form
+      <WaitlistForm
         id="waitlist"
-        action={`mailto:contact@ampere.sh?subject=${encodeURIComponent(subject)}`}
-        method="post"
-        encType="text/plain"
-        onSubmit={() => trackingEnabled && trackExperimentEvent("primary_cta", variant)}
+        cta={cta}
+        placement="hero"
+        onSuccess={() => trackingEnabled && trackExperimentEvent("primary_cta", variant)}
         className="mt-8 flex max-w-md scroll-mt-24 flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white"
-      >
-        <input name="email" type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
-        <button type="submit" className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:rounded-none">
-          {cta} <ArrowIcon />
-        </button>
-      </form>
+      />
       <p className="mt-3 max-w-md text-sm leading-6 text-muted">{microcopy}</p>
       <a
         href="#how-it-works"

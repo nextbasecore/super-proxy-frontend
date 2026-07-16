@@ -25,7 +25,7 @@ export const HERO_VARIANTS: Record<HeroVariant, HeroCopy> = {
     description:
       "Give every teammate their own API key — only the models admins approve, with usage limits and full visibility.",
     cta: "Join the waitlist",
-    microcopy: "Opens a pre-filled email to request early access. No newsletters.",
+    microcopy: "No spam. One email when early access opens.",
     gatewayTitle: "Super Proxy Gateway",
     gatewaySubtitle: "OpenAI-compatible",
     showBenefitStrip: false,

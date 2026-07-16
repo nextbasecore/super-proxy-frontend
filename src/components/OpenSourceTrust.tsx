@@ -1,3 +1,5 @@
+import WaitlistForm from "@/components/WaitlistForm";
+
 /* ------------------------------------------------------------------ */
 /* Icons                                                               */
 /* ------------------------------------------------------------------ */
@@ -228,13 +230,12 @@ export default function OpenSourceTrust() {
               gateway in infrastructure you control.
             </p>
 
-            <form action="mailto:contact@ampere.sh?subject=Super%20Proxy%20waitlist" method="post" encType="text/plain" className="mt-8 flex max-w-md flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white">
-              <input name="email" type="email" required placeholder="Work email address" className="min-w-0 flex-1 rounded-lg border border-border bg-white px-4 py-3.5 text-sm text-forest outline-none placeholder:text-muted sm:rounded-none sm:border-0 sm:bg-transparent" />
-              <button type="submit" className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:rounded-none">
-                Join the waitlist <ArrowRight className="h-3.5 w-3.5" />
-              </button>
-            </form>
-            <p className="mt-3 text-sm text-muted">Opens a pre-filled email to request early access. No newsletters.</p>
+            <WaitlistForm
+              cta="Join the waitlist"
+              placement="open_source"
+              className="mt-8 flex max-w-md flex-col gap-2.5 sm:flex-row sm:gap-0 sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-white"
+            />
+            <p className="mt-3 text-sm text-muted">No spam. One email when the repository goes live.</p>
           </div>
 
           <CodeEditor />

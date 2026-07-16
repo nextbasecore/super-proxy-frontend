@@ -222,6 +222,26 @@ body {
   }
 }
 
+/* Waitlist confirmation — short scale/fade with no layout movement. */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.dialog-in {
+  animation: dialog-in 220ms var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog-in {
+    animation: none;
+  }
+}
+
 /* FAQ accordion — state transition with a restrained height bridge. */
 .faq-answer {
   display: grid;
