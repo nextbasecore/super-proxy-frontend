@@ -45,14 +45,6 @@ function GitHubIcon({ className = "h-4 w-4" }: { className?: string }) {
     </svg>
   );
 }
-function CheckIcon({ className = "h-3 w-3" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="m5 13 4 4L19 7" />
-    </svg>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
@@ -64,117 +56,11 @@ const providers = [
 ];
 
 const members = [
-  { name: "Alex", role: "Developer", key: "key_alx_7f2...", allowed: "GPT-4o, Claude 3.5 Sonnet", slug: "alex", top: 0 },
-  { name: "Sam", role: "Product", key: "key_sam_3c8...", allowed: "GLM-4-Plus", slug: "sam", top: 128 },
-  { name: "Maya", role: "Design", key: "key_mya_1k4...", allowed: "Kimi K2", slug: "maya", top: 256 },
-  { name: "Jordan", role: "Ops", key: "key_jrd_9p1...", allowed: "GPT-4o", slug: "jordan", top: 384 },
+  { name: "Alex", role: "Developer", key: "key_alx_7f2...", allowed: "GPT-5.6 Sol, Claude Fable 5", slug: "alex", top: 0 },
+  { name: "Sam", role: "Product", key: "key_sam_3c8...", allowed: "Gemini 3.5", slug: "sam", top: 128 },
+  { name: "Maya", role: "Design", key: "key_mya_1k4...", allowed: "Kimi K3", slug: "maya", top: 256 },
+  { name: "Jordan", role: "Ops", key: "key_jrd_9p1...", allowed: "GPT-5.6 Sol", slug: "jordan", top: 384 },
 ];
-
-const topModels = [
-  { name: "GPT-4o", count: "1.23M", pct: 51 },
-  { name: "Claude 3.5 Sonnet", count: "742K", pct: 31 },
-  { name: "GLM-4-Plus", count: "287K", pct: 12 },
-  { name: "Kimi K2", count: "156K", pct: 6 },
-];
-
-const sidebar = ["Overview", "Keys", "Models", "Usage", "Members", "Settings"];
-
-function Avatar({ slug, name, size }: { slug: string; name: string; size: number }) {
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={`/avatars/${slug}.png`}
-      alt={name}
-      width={size}
-      height={size}
-      className="shrink-0 rounded-full object-cover"
-      style={{ width: size, height: size }}
-    />
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Right visual — diagram + dashboard                                  */
-/* ------------------------------------------------------------------ */
-function Dashboard() {
-  return (
-    <div className="w-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_2px_10px_rgba(24,58,50,0.05)]" aria-hidden>
-      <div className="flex">
-        <div className="hidden w-[140px] shrink-0 border-r border-border p-3 sm:block">
-          {sidebar.map((item, i) => (
-            <div key={item} className={`mb-0.5 flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-medium ${i === 0 ? "bg-surface text-forest" : "text-muted"}`}>
-              <span className={`h-1.5 w-1.5 rounded-full ${i === 0 ? "bg-forest" : "bg-[#c3ccc7]"}`} />
-              {item}
-            </div>
-          ))}
-        </div>
-
-        <div className="flex-1 p-5">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-bold text-forest">Overview</p>
-            <span className="rounded-lg border border-border px-2.5 py-1 text-[10px] text-muted">This month ▾</span>
-          </div>
-
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-border p-4">
-              <p className="text-[11px] font-semibold text-muted">Usage</p>
-              <p className="mt-1 text-2xl font-bold text-forest">2.41M</p>
-              <p className="text-[11px] text-muted">Requests</p>
-              <svg viewBox="0 0 140 34" className="mt-2 h-9 w-full">
-                <path d="M0,28 C18,27 24,23 38,22 S66,17 82,12 S112,9 140,3" fill="none" stroke="#2e6b57" strokeWidth="1.6" />
-              </svg>
-              <span className="mt-1 inline-block rounded-full bg-surface px-2 py-0.5 text-[9px] font-semibold text-[#2e6b57]">↑ 18% vs last month</span>
-            </div>
-
-            <div className="rounded-xl border border-border p-4">
-              <p className="text-[11px] font-semibold text-muted">Top models by usage</p>
-              <div className="mt-2.5 space-y-2">
-                {topModels.map((m) => (
-                  <div key={m.name} className="flex items-center gap-2 text-[10px] text-muted">
-                    <span className="w-[80px] truncate font-medium text-forest">{m.name}</span>
-                    <span className="w-9 text-right">{m.count}</span>
-                    <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface">
-                      <span className="block h-full rounded-full bg-[#2e6b57]" style={{ width: `${m.pct}%` }} />
-                    </span>
-                    <span className="w-7 text-right">{m.pct}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-border p-4">
-              <div className="flex items-center justify-between">
-                <p className="text-[11px] font-semibold text-muted">Default spend limit</p>
-                <span className="text-[10px] font-semibold text-[#2e6b57]">Edit</span>
-              </div>
-              <p className="mt-1.5 text-base font-bold text-forest">$200 <span className="text-[11px] font-medium text-muted">/ month</span></p>
-            </div>
-
-            <div className="rounded-xl border border-border p-4">
-              <div className="flex items-center justify-between">
-                <p className="text-[11px] font-semibold text-muted">Per-user access</p>
-                <span className="text-[10px] font-semibold text-[#2e6b57]">Edit</span>
-              </div>
-              <div className="mt-2 flex items-center gap-2">
-                {members.map((m) => (
-                  <span key={m.name} className="flex items-center gap-1 text-[9px] text-muted">
-                    <Avatar slug={m.slug} name={m.name} size={18} />{m.name}
-                  </span>
-                ))}
-                <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full border border-border text-[10px] text-muted">+</span>
-              </div>
-              <p className="mt-2 text-[9px] leading-3 text-muted">Each key has admin-approved models and limits</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between border-t border-border bg-[#fbfcfb] px-5 py-2.5 text-[10px] text-muted">
-        <span className="flex items-center gap-1.5"><span className="text-[#2e6b57]"><CheckIcon className="h-2.5 w-2.5" /></span> All requests pass through Super Proxy Gateway</span>
-      </div>
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* Page                                                                */
@@ -204,7 +90,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
               <GitHubIcon className="h-4 w-4" /> Open source&ensp;·&ensp;Repository coming soon
             </span>
 
-            <p className="mt-8 text-[13px] font-bold uppercase tracking-[0.14em] text-forest">
+            <p className="mt-8 text-[13px] font-bold uppercase tracking-[0.18em] text-green-700">
               {hero.category}
             </p>
 
@@ -213,7 +99,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
               <span className="text-vermilion">{hero.headlineAccent}</span>
             </h1>
 
-            <p className="mt-7 text-lg leading-8 text-[#3d4a44]">
+            <p className="mt-7 text-lg leading-8 text-body">
               {hero.description}
             </p>
 
@@ -234,7 +120,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ v
               { icon: <ChartIcon />, label: "See who used what" },
             ].map((benefit) => (
               <div key={benefit.label} className="flex items-center gap-3 rounded-xl bg-surface/60 px-4 py-3 text-sm font-semibold text-forest">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-forest shadow-sm">{benefit.icon}</span>
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-green-700 shadow-card">{benefit.icon}</span>
                 {benefit.label}
               </div>
             ))}

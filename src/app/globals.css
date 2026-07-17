@@ -5,13 +5,45 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --forest: #183a32;
-  --vermilion: #e0523d;
-  --surface: #e7efea;
+  /* -------------------------------------------------------------- */
+  /* Color system — fixed scales defined up front (Refactoring UI).  */
+  /* Never hand-pick one-off hexes; choose from these shades.        */
+  /* -------------------------------------------------------------- */
+  /* Brand green: dark shades for text, mid for actions, light for  */
+  /* tinted surfaces. Green-tinted neutrals keep the "temperature". */
+  --green-50: #f3f7f5;
+  --green-100: #e7efea;
+  --green-200: #d3e2d9;
+  --green-300: #b9d2c7;
+  --green-400: #93bca9;
+  --green-500: #6fa88e;
+  --green-600: #4f8a72;
+  --green-700: #2e6b57;
+  --green-800: #265643;
+  --green-900: #183a32;
+  --green-950: #122d26;
+
+  /* Vermilion accent. 500 is for large headlines/icons only (3.9:1);
+     use 700 for small text on light backgrounds (6.1:1, WCAG AA).  */
+  --vermilion-50: #fdefe9;
+  --vermilion-100: #f9d9cd;
+  --vermilion-500: #e0523d;
+  --vermilion-600: #c2432f;
+  --vermilion-700: #b03927;
+
+  /* Text hierarchy: 3 levels, exactly as the book prescribes —      */
+  /* primary (forest), secondary (body), tertiary (muted).          */
+  --body: #3d4a44;
   --muted: #66726c;
+  --faint: #9aa8a1; /* de-emphasized/disabled — decorative only */
+
+  /* Semantic aliases */
+  --forest: var(--green-900);
+  --vermilion: var(--vermilion-500);
+  --surface: var(--green-100);
   --border: #d9dfdb;
   --background: #ffffff;
-  --foreground: #183a32;
+  --foreground: var(--green-900);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -26,11 +58,11 @@
   --destructive: oklch(0.577 0.245 27.325);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: #2e6b57;
-  --chart-2: #4f8a72;
-  --chart-3: #6fa88e;
-  --chart-4: #9dc3b2;
-  --chart-5: #c3ddd0;
+  --chart-1: var(--green-700);
+  --chart-2: var(--green-600);
+  --chart-3: var(--green-500);
+  --chart-4: var(--green-400);
+  --chart-5: var(--green-300);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -49,7 +81,31 @@
   --color-vermilion: var(--vermilion);
   --color-surface: var(--surface);
   --color-muted: var(--muted);
+  --color-body: var(--body);
+  --color-faint: var(--faint);
   --color-border: var(--border);
+  --color-green-50: var(--green-50);
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-green-900: var(--green-900);
+  --color-green-950: var(--green-950);
+  --color-vermilion-50: var(--vermilion-50);
+  --color-vermilion-100: var(--vermilion-100);
+  --color-vermilion-600: var(--vermilion-600);
+  --color-vermilion-700: var(--vermilion-700);
+
+  /* Elevation system (two-part, forest-hued): pick by z-axis,       */
+  /* never hand-tune one-off shadows.                                */
+  --shadow-card: 0 1px 2px 0 rgb(24 58 50 / 0.05);
+  --shadow-raised: 0 1px 2px 0 rgb(24 58 50 / 0.06), 0 4px 12px -2px rgb(24 58 50 / 0.10);
+  --shadow-lifted: 0 2px 4px -1px rgb(24 58 50 / 0.10), 0 12px 28px -6px rgb(24 58 50 / 0.16);
+  --shadow-overlay: 0 4px 8px -2px rgb(24 58 50 / 0.12), 0 24px 48px -8px rgb(24 58 50 / 0.20);
   --font-sans: var(--font-plus-jakarta);
   --font-serif: var(--font-plus-jakarta);
   --font-heading: var(--font-plus-jakarta);

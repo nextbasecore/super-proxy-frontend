@@ -41,7 +41,7 @@ export default function Header() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-[#4a564f] transition-colors hover:text-forest">
+            <a key={l.href} href={l.href} className="text-sm font-medium text-body transition-colors hover:text-forest">
               {l.label}
             </a>
           ))}
@@ -49,7 +49,7 @@ export default function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden items-center md:flex">
-          <a href="#waitlist" className="press rounded-lg bg-forest px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#122d26]">
+          <a href="#waitlist" className="press rounded-lg bg-forest px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-950">
             Join waitlist
           </a>
         </div>
@@ -79,7 +79,7 @@ export default function Header() {
 
       {/* Mobile menu — overlays the page (absolute), does not push content */}
       {open && (
-        <div className="menu-in absolute inset-x-0 top-full z-50 border-b border-border bg-background shadow-lg md:hidden">
+        <div className="menu-in absolute inset-x-0 top-full z-50 border-b border-border bg-background shadow-overlay md:hidden">
           <nav className="mx-auto flex max-w-6xl flex-col px-6 py-3">
             {links.map((l) => (
               <a

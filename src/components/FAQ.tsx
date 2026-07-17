@@ -173,7 +173,7 @@ export default function FAQ() {
   };
 
   const renderColumn = (items: readonly (typeof faqs)[number][], offset: number) => (
-    <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-[0_1px_4px_rgba(24,58,50,0.04)]">
+    <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card">
       {items.map((item, localIndex) => {
         const index = offset + localIndex;
         return (
@@ -190,21 +190,21 @@ export default function FAQ() {
   );
 
   return (
-    <section id="faq" className="scroll-mt-16 border-t border-border bg-background">
+    <section id="faq" className="scroll-mt-16 bg-green-50">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="grid items-end gap-8 lg:grid-cols-[1fr_390px]">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#2e6b57]">FAQ</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">FAQ</p>
             <h2 className="mt-4 max-w-3xl font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
               Frequently asked <span className="text-vermilion">questions.</span>
             </h2>
-            <p className="mt-5 max-w-xl text-lg leading-8 text-[#3d4a44]">
+            <p className="mt-5 max-w-xl text-lg leading-8 text-body">
               Everything you need to know about Super Proxy and how it helps
               your team use AI with the right access and controls.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border bg-white p-5 shadow-[0_1px_4px_rgba(24,58,50,0.04)] sm:p-6">
+          <div className="rounded-2xl border border-border bg-white p-5 shadow-card sm:p-6">
             <div className="flex items-start gap-4">
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-surface text-forest">
                 <Icon name="question" className="h-8 w-8" />
@@ -265,7 +265,7 @@ export default function FAQ() {
           </div>
           <a
             href="#waitlist"
-            className="press inline-flex items-center justify-center rounded-xl bg-forest px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26]"
+            className="press inline-flex items-center justify-center rounded-xl bg-forest px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-green-950"
           >
             Join the waitlist
           </a>

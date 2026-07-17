@@ -101,13 +101,13 @@ export default function WaitlistForm({
         <button
           type="submit"
           disabled={submitting}
-          className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] disabled:cursor-wait disabled:opacity-70 sm:rounded-none"
+          className="press flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-forest px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-green-950 disabled:cursor-wait disabled:opacity-70 sm:rounded-none"
         >
           {submitting ? "Joining…" : cta} {!submitting && <ArrowIcon />}
         </button>
       </form>
 
-      {error && <p role="alert" className="mt-2 max-w-md text-sm font-medium text-vermilion">{error}</p>}
+      {error && <p role="alert" className="mt-2 max-w-md text-sm font-medium text-vermilion-700">{error}</p>}
 
       {dialogOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-forest/30 px-5 backdrop-blur-sm" role="presentation" onMouseDown={() => setDialogOpen(false)}>
@@ -115,17 +115,17 @@ export default function WaitlistForm({
             role="dialog"
             aria-modal="true"
             aria-labelledby="waitlist-success-title"
-            className="dialog-in w-full max-w-sm rounded-3xl border border-border bg-background p-7 text-center shadow-2xl"
+            className="dialog-in w-full max-w-sm rounded-3xl border border-border bg-background p-7 text-center shadow-overlay"
             onMouseDown={(event) => event.stopPropagation()}
           >
-            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-surface text-[#2e6b57]"><CheckIcon /></span>
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-surface text-green-700"><CheckIcon /></span>
             <h2 id="waitlist-success-title" className="mt-5 font-sans text-2xl font-semibold tracking-tight text-forest">You&apos;re on the waitlist.</h2>
             <p className="mt-3 text-sm leading-6 text-muted">We&apos;ll send one email when the Super Proxy repository goes live.</p>
             <button
               ref={closeButtonRef}
               type="button"
               onClick={() => setDialogOpen(false)}
-              className="press mt-6 w-full rounded-xl bg-forest px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#122d26]"
+              className="press mt-6 w-full rounded-xl bg-forest px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-green-950"
             >
               Got it
             </button>

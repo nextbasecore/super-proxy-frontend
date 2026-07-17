@@ -106,23 +106,23 @@ const after = [
 /* ------------------------------------------------------------------ */
 export default function BeforeAfter() {
   return (
-    <section className="border-t border-border bg-background">
+    <section className="bg-green-50">
       <div className="mx-auto max-w-6xl px-6 py-24">
         {/* Heading */}
-        <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[#2e6b57]">
+        <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-green-700">
           Before vs after
         </p>
         <h2 className="mx-auto mt-4 max-w-4xl text-center font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
           From shared credentials to{" "}
           <span className="text-vermilion">controlled AI access.</span>
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-center text-lg leading-8 text-[#3d4a44]">
+        <p className="mx-auto mt-5 max-w-xl text-center text-lg leading-8 text-body">
           Replace provider passwords, repeated logins, and uncontrolled model
           access with individual keys managed from one place.
         </p>
 
         {/* Comparison — one bordered frame, split by a divider on desktop */}
-        <div className="relative mt-14 flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-0 lg:rounded-3xl lg:border lg:border-border lg:bg-white lg:p-8 lg:shadow-[0_2px_16px_rgba(24,58,50,0.04)]">
+        <div className="relative mt-14 flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-0 lg:rounded-3xl lg:border lg:border-border lg:bg-white lg:p-8 lg:shadow-card">
           {/* Center VS divider (desktop) */}
           <div className="pointer-events-none absolute inset-y-8 left-1/2 hidden -translate-x-1/2 lg:block">
             <div className="h-full w-px bg-border" />
@@ -132,7 +132,7 @@ export default function BeforeAfter() {
           </span>
 
           {/* Before */}
-          <div className="rounded-3xl border border-border bg-white p-6 shadow-[0_2px_16px_rgba(24,58,50,0.04)] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:pr-10 lg:shadow-none">
+          <div className="rounded-3xl border border-border bg-white p-6 shadow-card lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:pr-10 lg:shadow-none">
             <div className="flex items-center gap-3">
               <span className="text-vermilion"><AlertCircle className="h-6 w-6" /></span>
               <h3 className="text-xl font-bold text-forest">Before</h3>
@@ -140,35 +140,35 @@ export default function BeforeAfter() {
             <ul className="mt-6">
               {before.map(({ icon: Icon, label }, i) => (
                 <li key={label} className={`flex items-center gap-3.5 py-3.5 ${i < before.length - 1 ? "border-b border-border" : ""}`}>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#fdefe9] text-vermilion">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-vermilion-50 text-vermilion">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className="text-[15px] text-[#3d4a44]">{label}</span>
+                  <span className="text-[15px] text-body">{label}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* After */}
-          <div className="rounded-3xl border border-border bg-white p-6 shadow-[0_2px_16px_rgba(24,58,50,0.04)] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:pl-10 lg:shadow-none">
+          <div className="rounded-3xl border border-border bg-white p-6 shadow-card lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:pl-10 lg:shadow-none">
             <div className="flex items-center gap-3">
-              <span className="text-[#2e6b57]"><CheckCircle className="h-6 w-6" /></span>
-              <h3 className="text-xl font-bold text-[#2e6b57]">After</h3>
+              <span className="text-green-700"><CheckCircle className="h-6 w-6" /></span>
+              <h3 className="text-xl font-bold text-green-700">After</h3>
             </div>
             <ul className="mt-6">
               {after.map((label, i) => (
                 <li key={label} className={`flex items-center gap-3.5 py-3.5 ${i < after.length - 1 ? "border-b border-border" : ""}`}>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface text-[#2e6b57]">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface text-green-700">
                     <Check className="h-4 w-4" />
                   </span>
-                  <span className="text-[15px] text-[#3d4a44]">{label}</span>
+                  <span className="text-[15px] text-body">{label}</span>
                 </li>
               ))}
             </ul>
 
             {/* Footer pill */}
             <div className="mt-5 flex flex-wrap items-center gap-2 rounded-xl bg-surface px-4 py-3 text-[13px] font-medium text-forest">
-              <span className="text-[#2e6b57]"><ShieldCheck className="h-4 w-4" /></span>
+              <span className="text-green-700"><ShieldCheck className="h-4 w-4" /></span>
               <span>Controlled access</span>
               <span className="text-muted">·</span>
               <span>Usage visibility</span>

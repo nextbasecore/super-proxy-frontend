@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { OpenAILogo, AnthropicLogo, GLMLogo, KimiLogo } from "@/components/ProviderLogos";
+import { OpenAILogo, AnthropicLogo, GeminiLogo, KimiLogo } from "@/components/ProviderLogos";
 import {
   ChartContainer,
   ChartTooltip,
@@ -72,20 +72,6 @@ function ArrowRight({ className = "h-4 w-4" }: { className?: string }) {
     </svg>
   );
 }
-function Dots({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
-      <circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" />
-    </svg>
-  );
-}
-function ChevronRight({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <path d="m9 6 6 6-6 6" />
-    </svg>
-  );
-}
 function ShieldIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
@@ -119,29 +105,31 @@ function BoltIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 function CheckMark({ ok, off }: { ok?: boolean; off?: boolean }) {
+  /* De-emphasize the default (allowed) state so exceptions stand out —
+     plain check for ok, tinted badge only for the "off" exception. */
   if (ok)
     return (
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2e6b57] text-white">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3"><path d="m5 13 4 4L19 7" /></svg>
+      <span className="flex h-6 w-6 items-center justify-center text-green-700">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="m5 13 4 4L19 7" /></svg>
       </span>
     );
   if (off)
     return (
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#fdefe9] text-vermilion">
+      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-vermilion-50 text-vermilion-700">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3"><path d="m7 7 10 10M17 7 7 17" /></svg>
       </span>
     );
-  return <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#eef1ef] text-[#b9c2bd]"><span className="h-[2px] w-2.5 rounded bg-current" /></span>;
+  return <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-50 text-faint"><span className="h-[2px] w-2.5 rounded bg-current" /></span>;
 }
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
-const modelCols = ["GPT-4o", "Claude 3.5 Sonnet", "GLM-4-Plus", "Kimi K2", "Other premium"];
+const modelCols = ["GPT-5.6 Sol", "Claude Fable 5", "Gemini 3.5", "Kimi K3", "Other premium"];
 
 /* Provider brand marks for the mobile access chips (first 4 columns) */
-const modelMarks = [OpenAILogo, AnthropicLogo, GLMLogo, KimiLogo];
-const modelShort = ["GPT", "Claude", "GLM", "Kimi"];
+const modelMarks = [OpenAILogo, AnthropicLogo, GeminiLogo, KimiLogo];
+const modelShort = ["GPT", "Claude", "Gemini", "Kimi"];
 
 const accessRows = [
   { name: "Alex", role: "Developer", slug: "alex", access: ["ok", "ok", "ok", "na", "off"] },
@@ -157,10 +145,10 @@ const limits = [
 ];
 
 const baseTopMembers = [
-  { name: "Alex", role: "Developer", slug: "alex", spend: "$518", model: "GPT-4o", pct: 21 },
-  { name: "Maya", role: "Design", slug: "maya", spend: "$463", model: "Claude 3.5 Sonnet", pct: 19 },
-  { name: "Sam", role: "Product", slug: "sam", spend: "$418", model: "GLM-4-Plus", pct: 17 },
-  { name: "Jordan", role: "Ops", slug: "jordan", spend: "$351", model: "Kimi K2", pct: 14 },
+  { name: "Alex", role: "Developer", slug: "alex", spend: "$518", model: "GPT-5.6 Sol", pct: 21 },
+  { name: "Maya", role: "Design", slug: "maya", spend: "$463", model: "Claude Fable 5", pct: 19 },
+  { name: "Sam", role: "Product", slug: "sam", spend: "$418", model: "Gemini 3.5", pct: 17 },
+  { name: "Jordan", role: "Ops", slug: "jordan", spend: "$351", model: "Kimi K3", pct: 14 },
   { name: "Other members", role: "", slug: "", spend: "$661", model: "Mixed", pct: 29 },
 ];
 
@@ -232,7 +220,7 @@ function Avatar({ slug, name, size = 34 }: { slug: string; name: string; size?: 
 }
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`w-full min-w-0 max-w-full overflow-hidden rounded-2xl border border-border bg-white p-5 shadow-[0_1px_4px_rgba(24,58,50,0.04)] sm:p-6 ${className}`}>{children}</div>;
+  return <div className={`w-full min-w-0 max-w-full overflow-hidden rounded-2xl border border-border bg-white p-5 shadow-card sm:p-6 ${className}`}>{children}</div>;
 }
 
 function TimeRangeMenu({ value, onChange }: { value: UsageRange; onChange: (range: UsageRange) => void }) {
@@ -249,7 +237,7 @@ function TimeRangeMenu({ value, onChange }: { value: UsageRange; onChange: (rang
         {value} <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div className="menu-in absolute right-0 top-[calc(100%+6px)] z-30 min-w-36 overflow-hidden rounded-xl border border-border bg-white p-1.5 shadow-lg">
+        <div className="menu-in absolute right-0 top-[calc(100%+6px)] z-30 min-w-36 overflow-hidden rounded-xl border border-border bg-white p-1.5 shadow-overlay">
           {usageRanges.map((range) => (
             <button
               key={range}
@@ -278,10 +266,10 @@ function UsageOverviewCard({ range, onRangeChange }: { range: UsageRange; onRang
         <div>
           <p className="text-sm font-bold text-forest">Usage overview</p>
           <p className="mt-0.5 text-xs text-muted">Illustrative spend and trend.</p>
-          <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-vermilion">Sample dashboard data</p>
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-vermilion-700">Sample dashboard data</p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="hidden items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-[#2e6b57] sm:flex"><TrendUp className="h-3 w-3" /> {usage.trend}</span>
+          <span className="hidden items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-green-700 sm:flex"><TrendUp className="h-3 w-3" /> {usage.trend}</span>
           <TimeRangeMenu value={range} onChange={onRangeChange} />
         </div>
       </div>
@@ -344,20 +332,20 @@ export default function AdminControls() {
     <section id="features" className="scroll-mt-16 border-t border-border bg-background">
       <div className="mx-auto max-w-6xl px-6 py-24">
         {/* Heading */}
-        <p className="text-center text-xs font-bold uppercase tracking-[0.16em] text-[#2e6b57]">
+        <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-green-700">
           Admin access, limits, and usage controls
         </p>
         <h2 className="mx-auto mt-4 text-center font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
           <span className="block">Control access. Set limits.</span>
           <span className="block text-vermilion">See everything.</span>
         </h2>
-        <p className="mx-auto mt-5 max-w-lg text-center text-lg leading-8 text-[#3d4a44]">
+        <p className="mx-auto mt-5 max-w-lg text-center text-lg leading-8 text-body">
           Give each teammate the right models and limits. Track usage in real
           time and keep costs under control.
         </p>
 
         {/* Tab bar */}
-        <div className="mt-12 grid grid-cols-3 gap-2 rounded-2xl border border-border bg-white p-2 shadow-[0_1px_4px_rgba(24,58,50,0.04)]">
+        <div className="mt-12 grid grid-cols-3 gap-2 rounded-2xl border border-border bg-white p-2 shadow-card">
           {tabs.map((t) => {
             const active = tab === t.id;
             return (
@@ -389,7 +377,7 @@ export default function AdminControls() {
               <p className="text-sm font-bold text-forest">Manage model access</p>
               <p className="mt-0.5 text-xs text-muted">Choose which models each teammate can use.</p>
             </div>
-            <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs text-muted focus-within:border-[#2e6b57]">
+            <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs text-muted focus-within:border-green-700">
               <SearchIcon className="h-3.5 w-3.5" />
               <input
                 type="search"
@@ -453,9 +441,9 @@ export default function AdminControls() {
                     return (
                       <span
                         key={i}
-                        className={`flex min-w-0 items-center gap-1.5 rounded-full py-1 pl-1 pr-2.5 text-[11px] font-semibold min-[420px]:gap-1 min-[420px]:pr-2 min-[420px]:text-[10px] ${allowed ? "bg-surface text-forest" : "bg-[#f2f4f3] text-[#b0b9b4] line-through decoration-1"}`}
+                        className={`flex min-w-0 items-center gap-1.5 rounded-full py-1 pl-1 pr-2.5 text-[11px] font-semibold min-[420px]:gap-1 min-[420px]:pr-2 min-[420px]:text-[10px] ${allowed ? "bg-surface text-forest" : "bg-green-50 text-faint line-through decoration-1"}`}
                       >
-                        <span className={`flex h-5 w-5 items-center justify-center rounded-full ${allowed ? "bg-white text-forest ring-1 ring-[#b9d2c7]" : "bg-[#d9dfdb] text-white"}`}>
+                        <span className={`flex h-5 w-5 items-center justify-center rounded-full ${allowed ? "bg-white text-forest ring-1 ring-green-300" : "bg-green-200 text-white"}`}>
                           <Mark className="h-3 w-3" />
                         </span>
                         {modelShort[i]}
@@ -489,7 +477,7 @@ export default function AdminControls() {
                         autoFocus
                         value={l.value}
                         onChange={(event) => setLimitItems((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, value: event.target.value } : item))}
-                        className="mt-1 w-full max-w-36 rounded-md border border-border px-2 py-1 text-xs text-forest outline-none focus:border-[#2e6b57]"
+                        className="mt-1 w-full max-w-36 rounded-md border border-border px-2 py-1 text-xs text-forest outline-none focus:border-green-700"
                       />
                     ) : (
                       <span className="mt-0.5 block text-xs text-muted">{l.value}</span>
@@ -511,7 +499,7 @@ export default function AdminControls() {
                 setLimitItems((current) => [...current, { label: `Custom limit ${current.length - limits.length + 1}`, value: "$100 / month" }]);
                 setEditingLimit(limitItems.length);
               }}
-              className="press mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#2e6b57] hover:underline"
+              className="press mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 hover:underline"
             >
               <Plus className="h-4 w-4" /> Add custom limit
             </button>
@@ -527,7 +515,7 @@ export default function AdminControls() {
             <div>
               <p className="text-sm font-bold text-forest">Top members by usage</p>
               <p className="mt-0.5 text-xs text-muted">See who&apos;s using what and how much.</p>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-vermilion">Sample dashboard data</p>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-vermilion-700">Sample dashboard data</p>
             </div>
             <TimeRangeMenu value={usageRange} onChange={setUsageRange} />
           </div>
@@ -537,7 +525,7 @@ export default function AdminControls() {
               <thead>
                 <tr className="text-[11px] font-bold uppercase tracking-wide text-muted">
                   <th className="pb-3 text-left">Member</th>
-                  <th className="pb-3 text-left">Spend</th>
+                  <th className="pb-3 text-right">Spend</th>
                   <th className="hidden pb-3 text-left sm:table-cell">Top model</th>
                   <th className="pb-3 text-left">% of total</th>
                 </tr>
@@ -554,13 +542,13 @@ export default function AdminControls() {
                         </span>
                       </span>
                     </td>
-                    <td className="py-3.5 text-sm font-semibold text-forest">{m.spend}</td>
+                    <td className="py-3.5 text-right text-sm font-semibold text-forest">{m.spend}</td>
                     <td className="hidden py-3.5 text-sm text-muted sm:table-cell">{m.model}</td>
                     <td className="py-3.5">
                       <span className="flex items-center gap-2">
                         <span className="w-8 text-sm font-semibold text-forest">{m.pct}%</span>
                         <span className="h-1.5 w-24 overflow-hidden rounded-full bg-surface">
-                          <span className="block h-full rounded-full bg-[#2e6b57]" style={{ width: `${m.pct * 2.5}%` }} />
+                          <span className="block h-full rounded-full bg-green-700" style={{ width: `${m.pct * 2.5}%` }} />
                         </span>
                       </span>
                     </td>

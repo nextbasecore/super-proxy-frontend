@@ -21,7 +21,7 @@ export default function Footer() {
 
           <a
             href="#waitlist"
-            className="press hidden items-center justify-center rounded-xl bg-forest px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#122d26] sm:inline-flex"
+            className="press hidden items-center justify-center rounded-xl bg-forest px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-green-950 sm:inline-flex"
           >
             Join the waitlist
           </a>

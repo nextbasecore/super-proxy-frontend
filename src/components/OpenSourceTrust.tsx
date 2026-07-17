@@ -69,29 +69,6 @@ function FolderChevron({ className = "h-3 w-3" }: { className?: string }) {
     </svg>
   );
 }
-function TeamIcon({ className = "h-5 w-5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <circle cx="9" cy="8" r="3" /><circle cx="16.5" cy="9.5" r="2.3" />
-      <path d="M3.5 19a5.5 5.5 0 0 1 11 0M14.5 19a4 4 0 0 1 6 0" />
-    </svg>
-  );
-}
-function GatewayShield({ className = "h-7 w-7" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" />
-      <circle cx="12" cy="11.5" r="2.4" /><path d="m13.7 9.8 1.3-1.3" />
-    </svg>
-  );
-}
-function GlobeIcon({ className = "h-5 w-5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3Z" />
-    </svg>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
@@ -137,7 +114,6 @@ const K = ({ children }: { children: React.ReactNode }) => <span className="text
 const F = ({ children }: { children: React.ReactNode }) => <span className="text-[#dcdcaa]">{children}</span>; // function
 const V = ({ children }: { children: React.ReactNode }) => <span className="text-[#9cdcfe]">{children}</span>; // var
 const P = ({ children }: { children: React.ReactNode }) => <span className="text-[#4ec9b0]">{children}</span>; // prop/type
-const C = ({ children }: { children: React.ReactNode }) => <span className="text-[#6a9955]">{children}</span>; // comment
 
 const codeLines: React.ReactNode[] = [
   <><K>export</K> <K>async</K> <K>function</K> <F>routeRequest</F>(<V>req</V>: <P>Request</P>) {"{"}</>,
@@ -162,7 +138,7 @@ const codeLines: React.ReactNode[] = [
 
 function CodeEditor() {
   return (
-    <div className="overflow-hidden rounded-xl border border-[#20262b] bg-[#0d1117] shadow-2xl">
+    <div className="overflow-hidden rounded-xl border border-[#20262b] bg-[#0d1117] shadow-overlay">
       {/* title bar */}
       <div className="flex items-center gap-2 border-b border-[#20262b] px-4 py-3">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -221,11 +197,11 @@ export default function OpenSourceTrust() {
         {/* Top: copy + editor */}
         <div className="grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr] lg:items-center lg:gap-14">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2e6b57]">Open source trust</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">Open source trust</p>
             <h2 className="mt-5 font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
               Your AI gateway should not be <span className="text-vermilion">a black box.</span>
             </h2>
-            <p className="mt-6 text-lg leading-8 text-[#3d4a44]">
+            <p className="mt-6 text-lg leading-8 text-body">
               Inspect the code, understand how requests are handled, and run the
               gateway in infrastructure you control.
             </p>
@@ -268,11 +244,11 @@ export default function OpenSourceTrust() {
         {/* Security by design */}
         <div className="mt-16 grid gap-10 rounded-3xl border border-border bg-surface/50 p-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:p-12">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2e6b57]">Security by design</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">Security by design</p>
             <h3 className="mt-4 font-sans text-4xl font-semibold leading-tight tracking-tight text-forest">
               Built for control and <span className="text-vermilion">privacy.</span>
             </h3>
-            <p className="mt-4 max-w-sm leading-7 text-[#3d4a44]">
+            <p className="mt-4 max-w-sm leading-7 text-body">
               You decide what data is stored, where it goes, and who can access
               it. Every request passes through your gateway before it ever
               reaches a provider.
@@ -284,7 +260,7 @@ export default function OpenSourceTrust() {
             <ul className="divide-y divide-border">
               {security.map((s) => (
                 <li key={s} className="flex items-center gap-3 py-4">
-                  <span className="text-[#2e6b57]"><CheckCircle className="h-5 w-5" /></span>
+                  <span className="text-green-700"><CheckCircle className="h-5 w-5" /></span>
                   <span className="text-[15px] font-medium text-forest">{s}</span>
                 </li>
               ))}

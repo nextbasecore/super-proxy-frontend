@@ -63,22 +63,22 @@ export default function CustomModels() {
   const model = customModels[active];
 
   return (
-    <section id="custom-models" className="scroll-mt-16 border-t border-border bg-background">
+    <section id="custom-models" className="scroll-mt-16 bg-green-50">
       <div className="mx-auto max-w-6xl px-6 py-24">
         {/* Header — centered */}
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#2e6b57]">Custom models &amp; intelligent routing</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">Custom models &amp; intelligent routing</p>
           <h2 className="mt-5 font-sans text-5xl font-semibold leading-[1.02] tracking-tight text-forest sm:text-6xl">
             Build the models your team <span className="text-vermilion">actually needs.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-[#3d4a44]">
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-body">
             One simple model name. Your gateway picks the best provider by task,
             cost, and remaining limits — with automatic fallback.
           </p>
         </div>
 
         {/* Interactive router simulator */}
-        <div className="mx-auto mt-14 max-w-4xl overflow-hidden rounded-3xl border border-border bg-white shadow-[0_2px_20px_rgba(24,58,50,0.05)]">
+        <div className="mx-auto mt-14 max-w-4xl overflow-hidden rounded-3xl border border-border bg-white shadow-card">
           {/* model selector tabs */}
           <div className="flex flex-col gap-2 border-b border-border p-3 sm:flex-row">
             {customModels.map((m, i) => {
@@ -94,7 +94,7 @@ export default function CustomModels() {
                   <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${on ? "bg-white/15 text-white" : "bg-surface text-forest"}`}>{m.icon("h-5 w-5")}</span>
                   <span className="min-w-0">
                     <span className={`block truncate font-mono text-[13px] font-bold ${on ? "text-white" : "text-forest"}`}>{m.name}</span>
-                    <span className={`block truncate text-[11px] ${on ? "text-white/70" : "text-muted"}`}>{m.tag}</span>
+                    <span className={`block truncate text-[11px] ${on ? "text-green-200" : "text-muted"}`}>{m.tag}</span>
                   </span>
                 </button>
               );
@@ -114,7 +114,7 @@ export default function CustomModels() {
   prompt: `}<span className="text-[#ce9178]">{`"${model.prompt}"`}</span>{`
 }`}</code>
               </pre>
-              <p className="mt-4 text-sm leading-6 text-[#3d4a44]">{model.summary}</p>
+              <p className="mt-4 text-sm leading-6 text-body">{model.summary}</p>
             </div>
 
             {/* right: routing result */}
@@ -131,18 +131,18 @@ export default function CustomModels() {
                     <div
                       key={p.name}
                       className={`flex items-center gap-3 rounded-xl border px-3.5 py-2.5 transition-colors ${
-                        isPrimary ? "border-[#2e6b57] bg-surface" : "border-border bg-white"
+                        isPrimary ? "border-green-700 bg-surface" : "border-border bg-white"
                       }`}
                     >
-                      <span className={isPrimary ? "text-forest" : "text-[#7d8a83]"}><p.Logo className="h-4 w-4" /></span>
-                      <span className={`w-[68px] shrink-0 text-sm font-semibold ${isPrimary ? "text-forest" : "text-[#4a564f]"}`}>{p.name}</span>
+                      <span className={isPrimary ? "text-forest" : "text-faint"}><p.Logo className="h-4 w-4" /></span>
+                      <span className={`w-[68px] shrink-0 text-sm font-semibold ${isPrimary ? "text-forest" : "text-body"}`}>{p.name}</span>
                       {/* limit bar */}
-                      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#eef1ef]">
-                        <span className={`block h-full rounded-full ${low ? "bg-vermilion" : "bg-[#2e6b57]"}`} style={{ width: `${p.remaining}%` }} />
+                      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-green-100">
+                        <span className={`block h-full rounded-full ${low ? "bg-vermilion" : "bg-green-700"}`} style={{ width: `${p.remaining}%` }} />
                       </span>
-                      <span className={`w-9 shrink-0 text-right text-[11px] font-medium ${low ? "text-vermilion" : "text-muted"}`}>{p.remaining}%</span>
-                      {isPrimary && <span className="shrink-0 rounded-full bg-[#2e6b57] px-2 py-0.5 text-[10px] font-bold text-white">Chosen</span>}
-                      {isFallback && <span className="shrink-0 rounded-full bg-surface px-2 py-0.5 text-[10px] font-semibold text-[#2e6b57]">Fallback</span>}
+                      <span className={`w-9 shrink-0 text-right text-[11px] font-medium ${low ? "text-vermilion-700" : "text-muted"}`}>{p.remaining}%</span>
+                      {isPrimary && <span className="shrink-0 rounded-full bg-green-700 px-2 py-0.5 text-[10px] font-bold text-white">Chosen</span>}
+                      {isFallback && <span className="shrink-0 rounded-full bg-surface px-2 py-0.5 text-[10px] font-semibold text-green-700">Fallback</span>}
                     </div>
                   );
                 })}
@@ -150,7 +150,7 @@ export default function CustomModels() {
 
               {/* reasoning */}
               <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-surface px-4 py-3">
-                <span className="mt-0.5 shrink-0 text-[#2e6b57]">{I.check("h-4 w-4")}</span>
+                <span className="mt-0.5 shrink-0 text-green-700">{I.check("h-4 w-4")}</span>
                 <p className="text-[13px] leading-5 text-forest">{model.reason}</p>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function CustomModels() {
                   <p className="flex items-center gap-2 text-[15px] font-bold text-forest">
                     <span className="text-vermilion">{r.n}</span>{r.title}
                   </p>
-                  <p className="mt-1.5 text-sm leading-6 text-[#4a564f]">{r.desc}</p>
+                  <p className="mt-1.5 text-sm leading-6 text-body">{r.desc}</p>
                 </div>
               </Reveal>
             ))}

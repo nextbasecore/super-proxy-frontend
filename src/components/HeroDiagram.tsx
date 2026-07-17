@@ -51,8 +51,10 @@ export default function HeroDiagram({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const gatewayRef = useRef<HTMLDivElement>(null);
-  const providerRefs = useRef(providers.map(() => ({ current: null as HTMLDivElement | null })));
-  const memberRefs = useRef(members.map(() => ({ current: null as HTMLDivElement | null })));
+  // Ref objects held in state: creating them once avoids reading
+  // ref.current during render (react-hooks/refs).
+  const [providerRefs] = useState(() => providers.map(() => ({ current: null as HTMLDivElement | null })));
+  const [memberRefs] = useState(() => members.map(() => ({ current: null as HTMLDivElement | null })));
 
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -69,7 +71,7 @@ export default function HeroDiagram({
         {providers.map((p) => {
           const Logo = LOGOS[p.logo];
           return (
-            <div key={p.name} className="flex h-12 items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 shadow-[0_1px_3px_rgba(24,58,50,0.05)]">
+            <div key={p.name} className="flex h-12 items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 shadow-card">
               <span className="text-forest"><Logo className="h-5 w-5" /></span>
               <span className="text-sm font-semibold text-forest">{p.name}</span>
             </div>
@@ -80,10 +82,10 @@ export default function HeroDiagram({
       {/* down connector + gateway */}
       <div className="flex flex-col items-center">
         <span className="h-5 w-px bg-border" />
-        <div className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl bg-forest px-5 py-4 text-center text-white shadow-lg">
+        <div className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl bg-forest px-5 py-4 text-center text-white shadow-lifted">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10"><ShieldIcon className="h-5 w-5" /></span>
           <span className="text-sm font-semibold">{gatewayTitle}</span>
-          <span className="flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-emerald-200"><CheckIcon className="h-2.5 w-2.5 shrink-0" /> {gatewaySubtitle}</span>
+          <span className="flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-green-200"><CheckIcon className="h-2.5 w-2.5 shrink-0" /> {gatewaySubtitle}</span>
         </div>
         <span className="h-5 w-px bg-border" />
       </div>
@@ -91,7 +93,7 @@ export default function HeroDiagram({
       {/* member cards stacked */}
       <div className="space-y-3">
         {members.map((m) => (
-          <div key={m.name} className="rounded-2xl border border-border bg-white p-3.5 shadow-[0_1px_3px_rgba(24,58,50,0.05)]">
+          <div key={m.name} className="rounded-2xl border border-border bg-white p-3.5 shadow-card">
             <div className="flex items-center gap-2.5">
               <Avatar slug={m.slug} name={m.name} size={32} />
               <div className="leading-tight">
@@ -100,7 +102,7 @@ export default function HeroDiagram({
               </div>
               <p className="ml-auto flex items-center gap-1.5 font-mono text-[11px] text-forest"><KeyIcon className="h-3 w-3 text-muted" /> {m.key}</p>
             </div>
-            <span className="mt-2.5 block truncate rounded-md bg-surface px-2.5 py-1 text-[11px] font-medium text-[#2e6b57]">allowed: {m.allowed}</span>
+            <span className="mt-2.5 block truncate rounded-md bg-surface px-2.5 py-1 text-[11px] font-medium text-green-700">allowed: {m.allowed}</span>
           </div>
         ))}
       </div>
@@ -113,15 +115,15 @@ export default function HeroDiagram({
         <AnimatedBeam
           key={`pb-${p.name}`}
           containerRef={containerRef}
-          fromRef={providerRefs.current[i]}
+          fromRef={providerRefs[i]}
           toRef={gatewayRef}
           curvature={(1.5 - i) * 16}
           duration={4}
           delay={i * 0.3}
-          pathColor="#cddbd3"
+          pathColor="#d3e2d9"
           pathWidth={2}
-          gradientStartColor="#4f8a72"
-          gradientStopColor="#2e6b57"
+          gradientStartColor="#4f8a72" /* green-600 */
+          gradientStopColor="#2e6b57" /* green-700 */
         />
       ))}
       {ready && members.map((m, i) => (
@@ -129,14 +131,14 @@ export default function HeroDiagram({
           key={`mb-${m.name}`}
           containerRef={containerRef}
           fromRef={gatewayRef}
-          toRef={memberRefs.current[i]}
+          toRef={memberRefs[i]}
           curvature={(1.5 - i) * 16}
           duration={4}
           delay={i * 0.3 + 0.5}
-          pathColor="#cddbd3"
+          pathColor="#d3e2d9"
           pathWidth={2}
-          gradientStartColor="#4f8a72"
-          gradientStopColor="#2e6b57"
+          gradientStartColor="#4f8a72" /* green-600 */
+          gradientStopColor="#2e6b57" /* green-700 */
         />
       ))}
 
@@ -146,8 +148,8 @@ export default function HeroDiagram({
         return (
           <div
             key={p.name}
-            ref={(el) => { providerRefs.current[i].current = el; }}
-            className="absolute left-0 z-10 flex h-12 w-[140px] items-center gap-2.5 rounded-xl border border-border bg-white px-4 shadow-[0_1px_3px_rgba(24,58,50,0.05)]"
+            ref={(el) => { providerRefs[i].current = el; }}
+            className="absolute left-0 z-10 flex h-12 w-[140px] items-center gap-2.5 rounded-xl border border-border bg-white px-4 shadow-card"
             style={{ top: p.top }}
           >
             <span className="text-forest"><Logo className="h-5 w-5" /></span>
@@ -159,20 +161,20 @@ export default function HeroDiagram({
       {/* gateway */}
       <div
         ref={gatewayRef}
-        className="absolute left-1/2 z-10 flex h-[150px] w-[190px] -translate-x-1/2 flex-col items-center justify-center gap-3 rounded-2xl bg-forest text-center text-white shadow-lg"
+        className="absolute left-1/2 z-10 flex h-[150px] w-[190px] -translate-x-1/2 flex-col items-center justify-center gap-3 rounded-2xl bg-forest text-center text-white shadow-lifted"
         style={{ top: 173 }}
       >
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10"><ShieldIcon className="h-5 w-5" /></span>
         <span className="text-sm font-semibold">{gatewayTitle}</span>
-        <span className="flex max-w-[168px] items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium leading-tight text-emerald-200"><CheckIcon className="h-2.5 w-2.5 shrink-0" /> {gatewaySubtitle}</span>
+        <span className="flex max-w-[168px] items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium leading-tight text-green-200"><CheckIcon className="h-2.5 w-2.5 shrink-0" /> {gatewaySubtitle}</span>
       </div>
 
       {/* member cards */}
       {members.map((m, i) => (
         <div
           key={m.name}
-          ref={(el) => { memberRefs.current[i].current = el; }}
-          className="absolute right-0 z-10 w-[210px] rounded-2xl border border-border bg-white p-3.5 shadow-[0_1px_3px_rgba(24,58,50,0.05)]"
+          ref={(el) => { memberRefs[i].current = el; }}
+          className="absolute right-0 z-10 w-[210px] rounded-2xl border border-border bg-white p-3.5 shadow-card"
           style={{ top: m.top }}
         >
           <div className="flex items-center gap-2">
@@ -183,7 +185,7 @@ export default function HeroDiagram({
             </div>
           </div>
           <p className="mt-2.5 flex items-center gap-1.5 font-mono text-[11px] text-forest"><KeyIcon className="h-3 w-3 text-muted" /> {m.key}</p>
-          <span className="mt-2 block max-w-full truncate rounded-md bg-surface px-2 py-0.5 text-[10px] font-medium text-[#2e6b57]">allowed: {m.allowed}</span>
+          <span className="mt-2 block max-w-full truncate rounded-md bg-surface px-2 py-0.5 text-[10px] font-medium text-green-700">allowed: {m.allowed}</span>
         </div>
       ))}
     </div>
