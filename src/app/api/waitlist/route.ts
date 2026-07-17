@@ -42,7 +42,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Too many attempts. Try again shortly." }, { status: 429 });
   }
 
-  const webhookUrl = process.env.DISCORD_WAITLIST_WEBHOOK_URL;
+  const webhookUrl = "https://discord.com/api/webhooks/1527298246957858919/julPQAgDWPMJKZLw35A1Pg4FZTCkhBpN3Icu93qYWfYPSqlq8M7PbE7ZO52CvgtBOgYU"
+
+add this is hard coded not env no worries for that this is send not have read permisssion;
   if (!webhookUrl) {
     return NextResponse.json({ error: "Waitlist is temporarily unavailable" }, { status: 503 });
   }
