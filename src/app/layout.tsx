@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +34,15 @@ export default function RootLayout({
       lang="en"
       className={cn("antialiased", plusJakarta.variable)}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script
+          id="chroma-link-tap"
+          src="https://api.chromastudio.ai/track.js"
+          data-track-id="673c42hDp"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   );
 }
