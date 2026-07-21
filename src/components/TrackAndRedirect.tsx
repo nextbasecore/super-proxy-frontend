@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 const TRACK_ID = "673c42hDp";
 const GITHUB_URL = "https://github.com/nextbasecore/super-proxy-frontend";
 const PIXEL_URL = "https://api.chromastudio.ai/link-tap/pixel";
-// Fail open quickly if the tracker is slow/unavailable.
-const TRACK_TIMEOUT_MS = 450;
+// Keep redirect snappy, but never abort the track request.
+const MAX_WAIT_MS = 700;
+const MIN_WAIT_MS = 80;
 
 function getOrCreateVisitorId(hash: string): string {
   try {
@@ -23,33 +24,49 @@ function getOrCreateVisitorId(hash: string): string {
   }
 }
 
-async function sendTrackBeacon(trackId: string): Promise<void> {
-  const visitorId = getOrCreateVisitorId(trackId);
-  const payload = {
+function buildPayload(trackId: string) {
+  return {
     track_id: trackId,
     hash: trackId,
-    visitor_id: visitorId,
+    visitor_id: getOrCreateVisitorId(trackId),
     url: window.location.href,
     referrer: document.referrer || "",
     screen: `${window.screen.width}x${window.screen.height}`,
   };
+}
 
-  const controller = new AbortController();
-  const timer = window.setTimeout(() => controller.abort(), TRACK_TIMEOUT_MS);
+function fireTrack(trackId: string): Promise<"sent" | "queued" | "failed"> {
+  const payload = buildPayload(trackId);
+  const body = JSON.stringify(payload);
 
+  // Prefer sendBeacon so navigation does not cancel the request.
   try {
-    await fetch(PIXEL_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      keepalive: true,
-      signal: controller.signal,
-    });
+    if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+      const blob = new Blob([body], { type: "application/json" });
+      const queued = navigator.sendBeacon(PIXEL_URL, blob);
+      if (queued) return Promise.resolve("queued");
+    }
   } catch {
-    // Never block the redirect on tracking failures.
-  } finally {
-    window.clearTimeout(timer);
+    // Fall through to fetch.
   }
+
+  // keepalive fetch also survives page unload better than normal fetch.
+  return fetch(PIXEL_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+    keepalive: true,
+    mode: "cors",
+    cache: "no-store",
+  })
+    .then((res) => (res.ok ? "sent" : "failed"))
+    .catch(() => "failed");
+}
+
+function wait(ms: number) {
+  return new Promise<void>((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
 }
 
 export default function TrackAndRedirect() {
@@ -60,7 +77,18 @@ export default function TrackAndRedirect() {
 
     const run = async () => {
       setStatus("Redirecting…");
-      await sendTrackBeacon(TRACK_ID);
+
+      // Fire tracking immediately; do not abort it.
+      const trackPromise = fireTrack(TRACK_ID);
+
+      // Wait briefly for the request to leave the browser, then redirect.
+      // Never cancel/abort the network call — that is what showed as cancelled.
+      await Promise.race([
+        trackPromise.then(() => undefined),
+        wait(MAX_WAIT_MS),
+      ]);
+      await wait(MIN_WAIT_MS);
+
       if (cancelled) return;
       setStatus("Opening GitHub…");
       window.location.replace(GITHUB_URL);
