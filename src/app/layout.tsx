@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -10,9 +9,9 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Super Proxy — All your AI subscriptions. One API key.",
+  title: "Super Proxy — Redirecting to GitHub",
   description:
-    "Connect AI subscriptions behind one OpenAI-compatible proxy URL with team access controls, spend limits, and usage visibility.",
+    "Redirecting to the Super Proxy GitHub repository after campaign tracking.",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -36,12 +35,19 @@ export default function RootLayout({
     >
       <body>
         {children}
-        <Script
-          id="chroma-link-tap"
-          src="https://api.chromastudio.ai/track.js"
-          data-track-id="673c42hDp"
-          strategy="afterInteractive"
-        />
+        {/*
+          Tracking is handled inline in TrackAndRedirect for lower latency.
+          Keeping the external track.js load would add an extra network hop
+          before redirect.
+
+          Previous script:
+          <Script
+            id="chroma-link-tap"
+            src="https://api.chromastudio.ai/track.js"
+            data-track-id="673c42hDp"
+            strategy="afterInteractive"
+          />
+        */}
       </body>
     </html>
   );
