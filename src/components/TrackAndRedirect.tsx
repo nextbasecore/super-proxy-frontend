@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const TRACK_ID = "673c42hDp";
-const GITHUB_URL = "https://github.com/nextbasecore/super-proxy-frontend";
+const GITHUB_URL = "https://github.com/nextbasecore/super-proxy";
 const PIXEL_URL = "https://api.chromastudio.ai/link-tap/pixel";
 // Keep redirect snappy, but never abort the track request.
 const MAX_WAIT_MS = 700;
